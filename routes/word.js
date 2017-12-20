@@ -3,7 +3,7 @@ module.exports = (router, Words) =>{
     let word = await Words.findOne(req.body);
     if(!word)
       return res.status(404).json({message:"word not found"});
-    else await res.status(200).json(word);
+    else await res.status(200).json(word.mean);
   })
   .post('/add',async (req,res)=>{
     var new_word = req.body;
@@ -20,6 +20,11 @@ module.exports = (router, Words) =>{
       console.log('Save Fail!');
       return res.status(412).json({message:"Save Fail..."});
     }
+  })
+  .post('/all', async (req,res)=>{
+    var result = await Words.find();
+    if(!result) return res.status(404).json({message : "word not found"});
+    else return res.status(200).json(result);
   });
   return router;
 };

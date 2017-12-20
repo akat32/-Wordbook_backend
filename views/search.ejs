@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>단어 검색</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+      function Search_word(){
+        var myElem = document.getElementById('search_word');
+        var myElem2 = document.getElementById('word');
+        var requrl = "/word/search";
+        var reqstr = {word : myElem.value}
+        axios.post(requrl, reqstr)
+        .then(function(response){
+          myElem2.value = response.data;
+        })
+        .catch(function(response){
+          myElem2.value = "단어가 없습니다!"
+        });
+      }
+    </script>
+    <style>
+      .divss{
+        float : left;
+        background : white;
+        width : 300px;
+        height: 10px;
+        border: 1px solid black;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        display:inline-table;
+      }
+    </style>
+  </head>
+  <body>
+    <b>단어 검색</b> <input type = "text" id = "search_word"/>
+    <button id = "button" onclick="Search_word();">검색!</button>
+    <br /><br />
+    <b>단어의 뜻</b> <input type = "text" id = "word" readonly/>
+    <br /><br />
+    <div class = "divss" onclick="location.href='http://localhost:3000'">메인으로 가즈아!</button>
+  </body>
+</html>

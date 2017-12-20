@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>단어 추가</title>
+    <style>
+      .divss{
+        float : left;
+        background : white;
+        width : 300px;
+        height: 10px;
+        border: 1px solid black;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        display:inline-table;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+    function Save_word(){
+      var myElem1 = document.getElementById('word');
+      var myElem2 = document.getElementById('mean');
+      var myElem3 = document.getElementById('status');
+      var requrl = "/word/add";
+      var reqstr = {word : myElem1.value, mean : myElem2.value}
+      axios.post(requrl, reqstr)
+      .then(function(response){
+        myElem3.value = "성공";
+      })
+      .catch(function(response){
+        myElem3.value = "실패"
+      });
+    }
+    </script>
+  </head>
+  <body>
+    <b>단어</b> <input type = "text" id = "word"/>
+    <input type = "text" id = "status" value = "결과" style = "width:43px;font-weight: bold;text-align: center;" readonly/>
+    <br /><br />
+    <b>풀이</b> <input type = "text" id = "mean"/>
+    <button id = "button" onclick="Save_word();">저장!</button>
+    <br /><br />
+    <div class = "divss" onclick="location.href='http://localhost:3000'">메인으로 가즈아!</button>
+  </body>
+</html>
